@@ -1,0 +1,29 @@
+name: Data Science Core Validation Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-matrix:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code Repository
+      uses: actions/checkout@v4
+
+    - name: Set Up Python Environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install Scientific Computing Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install numpy matplotlib
+
+    - name: Execute Iterative Learning Verification Engine
+      run: |
+        python run_learning_tests.py
